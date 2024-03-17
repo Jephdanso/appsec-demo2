@@ -33,7 +33,7 @@ jobs:
       - name: Get secrets
         run: |
           echo "Getting short commit..."
-          echo ${REPO_NAME}
+          echo ${SHORT_SHA}
           echo "Repo name: ...."
           echo ${REPO_NAME}
 
