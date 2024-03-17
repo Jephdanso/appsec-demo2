@@ -22,6 +22,7 @@ jobs:
 
       - name: Run composer install
         run: |
+          composer update
           composer install -n --prefer-dist
           echo "Getting short commit..."
           echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
