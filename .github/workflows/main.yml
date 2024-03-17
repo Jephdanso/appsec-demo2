@@ -27,6 +27,9 @@ jobs:
           echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
           echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
       
+      - name: Run Static Analysis
+        run: ./vendor/bin/phpstan --error-format=github
+        
       - name: Generate SBOM file
         uses: CycloneDX/gh-php-composer-generate-sbom@v1
       
@@ -37,15 +40,33 @@ jobs:
           echo "Repo name: ...."
           echo ${REPO_NAME}
 
-      - name: Run dependency tracker
+      # - name: Run dependency tracker
 
-        uses: attempto-Lab/dependencytrackupload-github-action@v1
-        with:
-          serverUrl: 'https://pretty-clam-romantic.ngrok-free.app/api/v1/bom'
-          apiKey: "odt_yPbW456wU3sDsAXRkzi1b07avSYAE2Es"
-          bomFile: 'bom.xml'
-          projectName: ${{ github.repository }}
-          projectVersion: ${{ github.ref_name }}
-          # projectName: ${{ steps.repo-name.outputs.repository-name }}
-          # projectVersion: ${SHORT_SHA}
-          autoCreate: true
+      #   uses: attempto-Lab/dependencytrackupload-github-action@v1
+      #   with:
+      #     serverUrl: 'https://pretty-clam-romantic.ngrok-free.app/api/v1/bom'
+      #     apiKey: "odt_yPbW456wU3sDsAXRkzi1b07avSYAE2Es"
+      #     bomFile: 'bom.xml'
+      #     projectName: ${{ github.repository }}
+      #     projectVersion: ${{ github.ref_name }}
+      #     # projectName: ${{ steps.repo-name.outputs.repository-name }}
+      #     # projectVersion: ${SHORT_SHA}
+      #     autoCreate: true
+
+  # phpstan:
+  #   name: phpstan
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  
+  #     - name: Setup PHP
+  #       uses: shivammathur/setup-php@v2
+  #       with:
+  #         php-version: '8.1'
+  #         coverage: none
+  
+  #     - name: Install composer dependencies
+  #       run: composer install -n --prefer-dist
+  
+  #     - name: Run Static Analysis
+  #       run: ./vendor/bin/phpstan --error-format=github
