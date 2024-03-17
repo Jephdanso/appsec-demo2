@@ -1,28 +1,52 @@
-# Vulnerable Laravel App
-This application was used in anamus' conference presentations to demonstrate the following vulnerabilities that are usually caused by poor development practises or mistakes in your code.
+# Vulnerable Laravel
 
-One of the talks recording is available at [YouTube](https://www.youtube.com/watch?v=kKGGVGiq2y8).
+This is my vulnerable Laravel web application, i made this to demonstrate how a Laravel web application can be vulnerable to security issues. 🤓 
 
-**This application contains critical security vulnerabilities, DO NOT deploy or run this application outside of your localhost (or expose your localhost while running this)**
+## How to install
 
-# Requirements
-* Docker
-* Docker Compose
-* PHP (>v7.1 preferably) & Composer
+### Install Laravel in Ubuntu
 
-# Installation
-* `composer install`
-* `docker-compose up -d`
-* `docker exec vuln-app php artisan migrate --seed`
+```
+sudo apt update
 
-# Vulnerabilities & tips
-## SQL Injection
-* There's a vulnerable API endpoint at http://localhost:1234/api/events?sort=id (assuming you're running this in docker)
-* There are many ways to exploit this, if you attended the talk you'll know one very specific tool for this
+sudo apt install php php-cli php-mbstring php-xml composer
 
-## Object Injection 
-* The tool used in the presentation is PHPGGC (https://github.com/ambionics/phpggc)
-* API endpoints used can be found at /api/uploads & /api/file-details?fileName=xxx
+composer global require laravel/installer
 
-## Privilege Escalation
-* This project's docker compose setup intentionally configures Laravel scheduler to run as root, that's all you need to know ;)
+nano ~/.bashrc
+
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+source ~/.bashrc
+
+```
+
+### Download the project
+
+```git clone https://github.com/khanhhnahk1/Vulnerable-Laravel```
+ 
+
+### Install dependencies
+
+```
+sudo apt-get install php-curl
+composer update
+cp .env.example .env
+php artisan key:generate
+```
+
+### Move to the project directory and then run the project
+```
+php artisan serve
+```
+
+### Run the following command to import sql file to your Mysql.
+
+```
+sudo service mysql restart
+
+sudo mysql -u root <vulnerablelaravel.sql
+```
+
+### Go to the project using this url `localhost:8000`
+
