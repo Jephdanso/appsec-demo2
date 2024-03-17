@@ -1,0 +1,58 @@
+name: Dependency Tracker
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+
+jobs:
+  build-sbom-scan-monitoring:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+          coverage: none
+
+      - name: Run composer install
+        run: |
+          composer install -n --prefer-dist
+          echo "Getting short commit..."
+          echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+          echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+      
+      - name: Generate SBOM file
+        uses: CycloneDX/gh-php-composer-generate-sbom@v1
+      
+      - name: Get secrets
+        run: |
+          echo "Getting short commit..."
+          echo ${REPO_NAME}
+          echo "Repo name: ...."
+          echo ${REPO_NAME}
+      # - name: Run dependency tracker
+
+      #   uses: attempto-Lab/dependencytrackupload-github-action@v1
+      #   with:
+      #     serverUrl: 'https://pretty-clam-romantic.ngrok-free.app/api/v1/bom'
+      #     apiKey: "odt_yPbW456wU3sDsAXRkzi1b07avSYAE2Es"
+      #     bomFile: 'bom.xml'
+      #     projectName: ${steps.repo-name.outputs.repository-name }}
+      #     projectVersion: ${SHORT_SHA}
+      #     autoCreate: true
+      # - name: Run dependency tracker
+
+        # uses: attempto-Lab/dependencytrackupload-github-action@v1
+        # with:
+        #   serverUrl: 'https://pretty-clam-romantic.ngrok-free.app/api/v1/bom'
+        #   apiKey: "odt_yPbW456wU3sDsAXRkzi1b07avSYAE2Es"
+        #   bomFile: 'bom.xml'
+        #   projectName: ${{ github.repository }}
+        #   projectVersion: ${{ github.ref_name }}
+        #   autoCreate: true
