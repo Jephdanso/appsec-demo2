@@ -44,16 +44,8 @@ jobs:
           serverUrl: 'https://pretty-clam-romantic.ngrok-free.app/api/v1/bom'
           apiKey: "odt_yPbW456wU3sDsAXRkzi1b07avSYAE2Es"
           bomFile: 'bom.xml'
-          projectName: ${{ steps.repo-name.outputs.repository-name }}
-          projectVersion: ${SHORT_SHA}
+          projectName: ${{ github.repository }}
+          projectVersion: ${{ github.ref_name }}
+          # projectName: ${{ steps.repo-name.outputs.repository-name }}
+          # projectVersion: ${SHORT_SHA}
           autoCreate: true
-      # - name: Run dependency tracker
-
-        # uses: attempto-Lab/dependencytrackupload-github-action@v1
-        # with:
-        #   serverUrl: 'https://pretty-clam-romantic.ngrok-free.app/api/v1/bom'
-        #   apiKey: "odt_yPbW456wU3sDsAXRkzi1b07avSYAE2Es"
-        #   bomFile: 'bom.xml'
-        #   projectName: ${{ github.repository }}
-        #   projectVersion: ${{ github.ref_name }}
-        #   autoCreate: true
