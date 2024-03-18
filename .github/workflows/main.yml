@@ -7,11 +7,12 @@ on:
 
 
 jobs:
-  build-sbom-scan-monitoring:
-    runs-on: ubuntu-latest
+  uses: Jephdanso/shared-workflow/.github/workflows/main.yml@main
+  # build-sbom-scan-monitoring:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: Jephdanso/shared-workflow/.github/workflows/main.yml@main
+  #   steps:
+  #     - uses: Jephdanso/shared-workflow/.github/workflows/main.yml@main
       # - uses: actions/checkout@v3
 
       # - name: Setup PHP
