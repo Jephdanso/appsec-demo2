@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: Jephdanso/shared-workflows/.github/main.yml@main
+      - uses: Jephdanso/shared-workflow/.github/main.yml@main
       # - uses: actions/checkout@v3
 
       # - name: Setup PHP
