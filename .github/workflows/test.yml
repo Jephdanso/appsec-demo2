@@ -7,6 +7,10 @@ on:
     branches:
       -  '**'  
   pull_request:
+    types:
+      - opened
+      - reopened
+      - closed
     # Trigger the worflow on pull request event for main branch
     branches:
       - main
